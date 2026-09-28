@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soliq.uz ➔ 1C Savdo Import Platformasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Glowing Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">
+            <span>Soliq.uz</span>
+            <span class="brand-arrow">➔</span>
+            <span class="brand-1c">1C Bridge</span>
+          </div>
+          <span class="brand-sub">Onlayn-NKM savdolarini 1C ga import qilish platformasi</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="connection-status">
+          <span class="status-dot"></span>
+          <span>1C:Бухгалтерия 3.0 (Bulutli)</span>
+        </div>
+        <button class="btn btn-outline-nav" onclick="resetAll()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          Yangilash
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+
+    <!-- Hero / Workflow Bar -->
+    <section class="workflow-strip">
+      <div class="wf-step active">
+        <span class="wf-num">1</span>
+        <div class="wf-info">
+          <strong>Cheklarni tanlash</strong>
+          <span>Soliq.uz Excel fayllari</span>
+        </div>
+      </div>
+      <div class="wf-divider"></div>
+      <div class="wf-step" id="wf-step-2">
+        <span class="wf-num">2</span>
+        <div class="wf-info">
+          <strong>Avtomat tahlil</strong>
+          <span>Пономенклатурно & 12% QQS</span>
+        </div>
+      </div>
+      <div class="wf-divider"></div>
+      <div class="wf-step" id="wf-step-3">
+        <span class="wf-num">3</span>
+        <div class="wf-info">
+          <strong>1C ga yuklash</strong>
+          <span>«Продажа» va «Возврат»</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Auto-Detected Files Alert Banner -->
+    <div id="detected-banner" class="banner-detected hidden">
+      <div class="banner-content">
+        <div class="banner-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="banner-title">Papkada Soliq.uz cheklari aniqlandi:</div>
+          <div class="banner-files" id="detected-files-list"></div>
+        </div>
+      </div>
+      <button class="btn btn-emerald" onclick="processExistingFiles()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Ushbu fayllarni darhol tahlil qilish
+      </button>
+    </div>
+
+    <!-- Upload Card -->
+    <section class="glass-card upload-section">
+      <div class="section-title-wrap">
+        <h2>Fayllarni tanlang yoki tashlang</h2>
+        <p>Soliq.uz virtual kassa kabinetidan yuklab olingan cheklar ro'yxati</p>
+      </div>
+
+      <div class="upload-cards-grid">
+        <!-- Sotuv Cheki -->
+        <div class="upload-drop-card" id="drop-sotuv">
+          <div class="card-badge required">Majburiy</div>
+          <div class="upload-icon-circle">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <h3>Sotuv Cheklari</h3>
+          <p>Soliq.uz «Сотув» fayli (.xlsx)</p>
+          <input type="file" id="file-sotuv" accept=".xlsx,.xls">
+          <div class="file-chip" id="info-sotuv">Faylni tanlang</div>
+        </div>
+
+        <!-- Qaytarish Cheki -->
+        <div class="upload-drop-card" id="drop-qayt">
+          <div class="card-badge optional">Ixtiyoriy</div>
+          <div class="upload-icon-circle return-circle">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          </div>
+          <h3>Qaytarish Cheklari</h3>
+          <p>Soliq.uz «Кайтариш» fayli (.xlsx)</p>
+          <input type="file" id="file-qayt" accept=".xlsx,.xls">
+          <div class="file-chip" id="info-qayt">Faylni tanlang</div>
+        </div>
+
+        <!-- Nomenklatura Ma'lumotnomasi -->
+        <div class="upload-drop-card" id="drop-nom">
+          <div class="card-badge optional">Ixtiyoriy</div>
+          <div class="upload-icon-circle nom-circle">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>1C Nomenklatura Kodlari</h3>
+          <p>Papkadagi barcha nom fayllar avtomatik topiladi</p>
+          <input type="file" id="file-nom" accept=".xlsx,.xls">
+          <div class="file-chip" id="info-nom">Avtomatik topiladi</div>
+        </div>
+      </div>
+
+      <div class="upload-footer">
+        <div class="fallback-code-group">
+          <label>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            Nomenklatura kodlari papkadan avtomatik yuklanadi
+          </label>
+        </div>
+
+        <button id="btn-process" class="btn btn-primary btn-glow" onclick="submitFiles()">
+          <span id="btn-spinner" class="spinner hidden"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Tahlil qilish va 1C fayllarini tayyorlash
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <div id="results-wrapper" class="results-wrapper hidden">
+
+      <!-- Nomenklatura Mapping Stats -->
+      <div id="mapping-stats-banner" class="mapping-stats-banner hidden">
+        <div class="mapping-stat">
+          <span class="ms-icon">📚</span>
+          <span class="ms-label">Nomenklatura bazasi:</span>
+          <span class="ms-value" id="stat-total-nom">0</span>
+        </div>
+        <div class="mapping-stat">
+          <span class="ms-icon">✅</span>
+          <span class="ms-label">Kod topildi:</span>
+          <span class="ms-value ms-green" id="stat-matched">0</span>
+        </div>
+        <div class="mapping-stat">
+          <span class="ms-icon">⚠️</span>
+          <span class="ms-label">Kod topilmadi:</span>
+          <span class="ms-value ms-amber" id="stat-unmatched">0</span>
+        </div>
+        <div class="mapping-stat">
+          <span class="ms-icon">📂</span>
+          <span class="ms-label">Nom fayllari:</span>
+          <span class="ms-value" id="stat-nom-files">0</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs: 4 modes (Сводно yo'q) -->
+      <div class="mode-navigation-bar">
+        <div class="mode-nav-header">
+          <span class="mode-label">1C DA QIDIRUV VA MOSLASH USULI:</span>
+        </div>
+        <div class="mode-pill-group">
+          <button class="mode-pill active" onclick="switchMode('nomenklaturno')">
+            <span class="pill-icon">📋</span>
+            <span>Пономенклатурно</span>
+            <span class="pill-tag">Nomi</span>
+          </button>
+          <button class="mode-pill" onclick="switchMode('ikpu')">
+            <span class="pill-icon">🏷️</span>
+            <span>По ИКПУ (МХИК)</span>
+          </button>
+          <button class="mode-pill" onclick="switchMode('artikul')">
+            <span class="pill-icon">📦</span>
+            <span>По Артикулу</span>
+          </button>
+          <button class="mode-pill" onclick="switchMode('kod')">
+            <span class="pill-icon">🔢</span>
+            <span>По Коду номенклатуры</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Two Main Operation Cards: SOTUV and QAYTARISH -->
+      <div class="operations-container">
+
+        <!-- SOTUV CARD (NET = Sotuv - Qaytarish) -->
+        <div class="glass-card op-card-sotuv">
+          <div class="op-header">
+            <div class="op-header-left">
+              <div class="op-badge badge-blue">SOTUV — QAYTARISH = NET (ПРОДАЖА)</div>
+              <span id="sotuv-file-label" class="op-filename"></span>
+            </div>
+            <div class="op-tag" id="sotuv-receipts-badge">0 ta chek</div>
+          </div>
+
+          <!-- Major Metric: Total Net Sum -->
+          <div class="hero-metric-box">
+            <div class="hero-metric-label">NET SOTUV SUMMASI (QAYTARISHLAR AYRILGAN, QQS BILAN)</div>
+            <div class="hero-metric-value text-blue" id="sotuv-total-sum">0.00 so'm</div>
+          </div>
+
+          <!-- Original Sotuv Info -->
+          <div class="sub-metrics-grid" style="margin-top:12px;">
+            <div class="sub-metric-card">
+              <span class="sm-label">📊 Jami sotuv (asl)</span>
+              <span class="sm-value" id="sotuv-original-sum">0.00 so'm</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">↩️ Qaytarilgan summa</span>
+              <span class="sm-value" style="color:#fb7185;" id="sotuv-return-sum">0.00 so'm</span>
+            </div>
+          </div>
+
+          <!-- Highlight Card: KARTA (Безналичная оплата) -->
+          <div class="cashless-highlight-box">
+            <div class="cashless-top">
+              <div class="cashless-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                <span>KARTA (БЕЗНАЛИЧНАЯ ОПЛАТА)</span>
+              </div>
+              <button class="btn btn-copy" onclick="copyCardSum()" title="1C «Безналичная оплата» uchun nusxalash">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Nusxa olish</span>
+              </button>
+            </div>
+            <div class="cashless-value" id="sotuv-card-sum">0.00 so'm</div>
+            <div class="cashless-note">
+              👉 1C hujjati ochilgach, <strong>«Безналичная оплата»</strong> bo'limiga ushbu summani kiriting.
+            </div>
+          </div>
+
+          <!-- Other Metrics Grid -->
+          <div class="sub-metrics-grid">
+            <div class="sub-metric-card">
+              <span class="sm-label">💵 Naqd pul</span>
+              <span class="sm-value" id="sotuv-cash-sum">0.00 so'm</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">📊 12% QQS summasi</span>
+              <span class="sm-value" id="sotuv-vat-sum">0.00 so'm</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">📦 Tovar turlari (NET)</span>
+              <span class="sm-value" id="sotuv-items-count">0 ta</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">🔢 Jami cheklar (asl)</span>
+              <span class="sm-value" id="sotuv-rows-count">0 ta</span>
+            </div>
+          </div>
+
+          <!-- Payment Split Visual Bar -->
+          <div class="split-bar-wrap">
+            <div class="split-labels">
+              <span id="cash-percent-label">Naqd: 0%</span>
+              <span id="card-percent-label">Karta: 0%</span>
+            </div>
+            <div class="split-progress">
+              <div class="split-fill-cash" id="split-bar-cash" style="width: 50%;"></div>
+              <div class="split-fill-card" id="split-bar-card" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <!-- Download Action Buttons — dynamic per mode -->
+          <div class="op-downloads">
+            <div class="download-label">1C «Продажа» uchun Excel fayl (<span id="dl-sotuv-mode-label">Пономенклатурно</span>):</div>
+            <div class="download-btns">
+              <a href="/api/download/sotuv_nomenklaturno" id="dl-sotuv-link" class="btn btn-download-primary">
+                <div class="btn-download-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+                <div class="btn-download-text">
+                  <strong id="dl-sotuv-title">NET Sotuv Fayli (Qaytarishlar ayrilgan)</strong>
+                  <span id="dl-sotuv-desc">Пономенклатурно — nomi bo'yicha qidiriladi</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- 1C OData Yuborish Panel -->
+          <div class="op-downloads" style="margin-top:12px; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
+            <div class="download-label">&#x1F680; 1C ga OData orqali to'g'ridan-to'g'ri yuborish:</div>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px;">
+              <input type="date" id="send-doc-date"
+                     style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff; padding:8px 12px; font-size:14px; outline:none;">
+              <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:#9CA3AF;cursor:pointer;">
+                <input type="checkbox" id="chk-send-qaytarish" checked style="width:15px;height:15px;cursor:pointer;">
+                Qaytarishni ham yuborish
+              </label>
+              <button id="btn-send-1c" onclick="sendTo1C()" disabled
+                      style="background:linear-gradient(135deg,#1E3A8A,#2563EB);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;opacity:0.5;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+                1C ga yuborish
+              </button>
+            </div>
+            <div id="send-1c-status" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;"></div>
+          </div>
+
+        </div>
+
+        <!-- QAYTARISH CARD -->
+        <div class="glass-card op-card-qayt">
+          <div class="op-header">
+            <div class="op-header-left">
+              <div class="op-badge badge-rose">QAYTARISH (ВОЗВРАТ ПО ЧЕКУ)</div>
+              <span id="qayt-file-label" class="op-filename"></span>
+            </div>
+            <div class="op-tag" id="qayt-receipts-badge">0 ta chek</div>
+          </div>
+
+          <!-- Major Metric: Total Return Sum -->
+          <div class="hero-metric-box">
+            <div class="hero-metric-label">JAMI QAYTARISH SUMMASI</div>
+            <div class="hero-metric-value text-rose" id="qayt-total-sum">0.00 so'm</div>
+          </div>
+
+          <!-- Return Details Grid -->
+          <div class="sub-metrics-grid" style="margin-top: 18px;">
+            <div class="sub-metric-card">
+              <span class="sm-label">💵 Naqd pul qaytarish</span>
+              <span class="sm-value" id="qayt-cash-sum">0.00 so'm</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">💳 Karta orqali qaytarish</span>
+              <span class="sm-value" id="qayt-card-sum">0.00 so'm</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">📊 12% QQS summasi</span>
+              <span class="sm-value" id="qayt-vat-sum">0.00 so'm</span>
+            </div>
+            <div class="sub-metric-card">
+              <span class="sm-label">📦 Qaytarilgan tovarlar</span>
+              <span class="sm-value" id="qayt-items-count">0 ta</span>
+            </div>
+          </div>
+
+          <!-- Return Note Box -->
+          <div class="return-info-box">
+            <div class="rib-icon">💡</div>
+            <div class="rib-text">
+              Qaytarilgan tovarlar 1C dagi <strong>«Розничные продажи (чеки)»</strong> oynasining 
+              <strong>«Возврат по чеку»</strong> tugmasi orqali alohida hujjat sifatida kiritiladi.
+            </div>
+          </div>
+
+          <!-- Download Action Button — dynamic per mode -->
+          <div class="op-downloads" style="margin-top: auto;">
+            <div class="download-label">1C «Возврат по чеку» uchun Excel fayl:</div>
+            <div class="download-btns">
+              <a href="/api/download/qayt_nomenklaturno" id="dl-qayt-link" class="btn btn-download-rose">
+                <div class="btn-download-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                </div>
+                <div class="btn-download-text">
+                  <strong id="dl-qayt-title">Qaytarish Faylini Yuklab Olish</strong>
+                  <span id="dl-qayt-desc">1C «Возврат» shabloniga to'liq mos</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Visual 1C Configuration Assistant -->
+      <section class="glass-card guide-section">
+        <div class="guide-header">
+          <div class="guide-title">
+            <div class="icon-1c-cube">1C</div>
+            <div>
+              <h3>1C «Форма загрузки данных из файла» Sozlamalari</h3>
+              <p>Yuklab olingan faylni 1C ga import qilishda «Настройки колонок»ga kiritiladigan raqamlar</p>
+            </div>
+          </div>
+          <div class="active-mode-indicator" id="guide-active-mode">Faol: Пономенклатурно</div>
+        </div>
+
+        <div class="simulator-table-wrapper">
+          <table class="simulator-table">
+            <thead>
+              <tr>
+                <th>1C Ustun Nomi</th>
+                <th>Kiritiladigan Ustun Raqami</th>
+                <th>«Поле поиска» Belgisi</th>
+                <th>Exceldagi Maydon Izohi</th>
+              </tr>
+            </thead>
+            <tbody id="guide-table-body">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Interactive Data Explorer Table -->
+      <section class="glass-card explorer-section">
+        <div class="explorer-header">
+          <div>
+            <h3>Tayyorlangan Tovarlar Ro'yxati</h3>
+            <p>1C fayliga joylashtirilgan tovarlar qatorlari</p>
+          </div>
+          
+          <div class="explorer-controls">
+            <!-- Search Input -->
+            <div class="search-input-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="table-search" placeholder="Tovar nomi, shtrixkod, IKPU..." oninput="handleSearch()">
+            </div>
+
+            <!-- Segment filter -->
+            <div class="segment-group">
+              <button class="segment-btn active" id="seg-all" onclick="filterTable('all')">Barchasi</button>
+              <button class="segment-btn" id="seg-sotuv" onclick="filterTable('sotuv')">Sotuvlar (NET)</button>
+              <button class="segment-btn" id="seg-qayt" onclick="filterTable('qayt')">Qaytarishlar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll-wrap">
+          <table class="data-grid">
+            <thead>
+              <tr>
+                <th width="50">№</th>
+                <th width="120">1C Kodi</th>
+                <th>Mahsulot Nomi (Номенклатура)</th>
+                <th width="140">Артикул / Shtrixkod</th>
+                <th width="170">ИКПУ (МХИК)</th>
+                <th width="100" class="text-right">Miqdori</th>
+                <th width="110" class="text-right">Narxi</th>
+                <th width="130" class="text-right">Summasi</th>
+                <th width="80" class="text-center">QQS</th>
+                <th width="110" class="text-right">QQS Summasi</th>
+              </tr>
+            </thead>
+            <tbody id="data-grid-body">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-pagination-bar">
+          <span class="pagination-info" id="pagination-info">0 ta tovar ko'rsatilmoqda</span>
+          <div class="pagination-buttons" id="pagination-controls">
+            <!-- Controls -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <footer class="site-footer">
+    <p>Soliq.uz ➔ 1C Savdo Import Platformasi | 12% QQS O'zbekiston Standarti | Barcha huquqlar himoyalangan</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
