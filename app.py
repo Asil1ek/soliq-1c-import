@@ -60,13 +60,19 @@ def find_all_nomenklatura_files():
                 break
     return matched
 
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
 @app.route('/')
 def index():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory(STATIC_DIR, 'index.html')
 
 @app.route('/<path:filename>')
 def serve_static(filename):
-    return send_from_directory('static', filename)
+    target = os.path.join(STATIC_DIR, filename)
+    if os.path.exists(target) and os.path.isfile(target):
+        return send_from_directory(STATIC_DIR, filename)
+    return send_from_directory(STATIC_DIR, 'index.html')
+
 
 @app.route('/api/status')
 def status():
