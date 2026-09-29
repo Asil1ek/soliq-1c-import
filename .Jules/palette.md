@@ -1,0 +1,3 @@
+## 2024-09-29 - Accessible custom file drop zones
+**Learning:** When using visually hidden (`opacity: 0`) file inputs overlaid on a stylized container (like a custom drop zone), standard `:focus` styles on the input won't be visible. Keyboard users will lose their tab position.
+**Action:** Apply `:focus-within` to the parent container to highlight the entire drop zone when the invisible input receives focus, providing a clear visual cue for keyboard navigation. Remove any explicit outline from the invisible input itself so it doesn't try to draw outside its invisible bounds.
