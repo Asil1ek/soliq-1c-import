@@ -330,7 +330,7 @@ body {
   align-items: center;
 }
 
-.upload-drop-card:hover, .upload-drop-card.dragover {
+.upload-drop-card:hover, .upload-drop-card.dragover, .upload-drop-card:focus-within {
   border-color: var(--primary);
   background: rgba(59, 130, 246, 0.06);
   transform: translateY(-2px);
@@ -345,6 +345,10 @@ body {
   opacity: 0;
   cursor: pointer;
   z-index: 10;
+}
+
+.upload-drop-card input[type="file"]:focus-visible {
+  outline: none; /* Let the container handle the focus style */
 }
 
 .card-badge {
