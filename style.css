@@ -27,6 +27,12 @@
   padding: 0;
 }
 
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px; /* Slight rounding for general focus */
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg);
@@ -330,10 +336,11 @@ body {
   align-items: center;
 }
 
-.upload-drop-card:hover, .upload-drop-card.dragover {
+.upload-drop-card:hover, .upload-drop-card.dragover, .upload-drop-card:focus-within {
   border-color: var(--primary);
   background: rgba(59, 130, 246, 0.06);
   transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--primary-glow);
 }
 
 .upload-drop-card input[type="file"] {
