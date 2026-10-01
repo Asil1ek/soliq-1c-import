@@ -110,7 +110,7 @@
           </div>
           <h3>Sotuv Cheklari</h3>
           <p>Soliq.uz «Сотув» fayli (.xlsx)</p>
-          <input type="file" id="file-sotuv" accept=".xlsx,.xls">
+          <input type="file" id="file-sotuv" accept=".xlsx,.xls" aria-label="Sotuv cheklari faylini tanlang">
           <div class="file-chip" id="info-sotuv">Faylni tanlang</div>
         </div>
 
@@ -122,7 +122,7 @@
           </div>
           <h3>Qaytarish Cheklari</h3>
           <p>Soliq.uz «Кайтариш» fayli (.xlsx)</p>
-          <input type="file" id="file-qayt" accept=".xlsx,.xls">
+          <input type="file" id="file-qayt" accept=".xlsx,.xls" aria-label="Qaytarish cheklari faylini tanlang">
           <div class="file-chip" id="info-qayt">Faylni tanlang</div>
         </div>
 
@@ -134,7 +134,7 @@
           </div>
           <h3>1C Nomenklatura Kodlari</h3>
           <p>Papkadagi barcha nom fayllar avtomatik topiladi</p>
-          <input type="file" id="file-nom" accept=".xlsx,.xls">
+          <input type="file" id="file-nom" accept=".xlsx,.xls" aria-label="Nomenklatura kodlari faylini tanlang">
           <div class="file-chip" id="info-nom">Avtomatik topiladi</div>
         </div>
       </div>
@@ -309,7 +309,7 @@
           <div class="op-downloads" style="margin-top:12px; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
             <div class="download-label">&#x1F680; 1C ga OData orqali to'g'ridan-to'g'ri yuborish:</div>
             <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px;">
-              <input type="date" id="send-doc-date"
+              <input type="date" id="send-doc-date" aria-label="Hujjat sanasini tanlang"
                      style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:#fff; padding:8px 12px; font-size:14px; outline:none;">
               <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:#9CA3AF;cursor:pointer;">
                 <input type="checkbox" id="chk-send-qaytarish" checked style="width:15px;height:15px;cursor:pointer;">
@@ -432,7 +432,7 @@
             <!-- Search Input -->
             <div class="search-input-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="table-search" placeholder="Tovar nomi, shtrixkod, IKPU..." oninput="handleSearch()">
+              <input type="text" id="table-search" aria-label="Tovarlarni qidirish" placeholder="Tovar nomi, shtrixkod, IKPU..." oninput="handleSearch()">
             </div>
 
             <!-- Segment filter -->
