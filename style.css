@@ -330,10 +330,14 @@ body {
   align-items: center;
 }
 
-.upload-drop-card:hover, .upload-drop-card.dragover {
+.upload-drop-card:hover, .upload-drop-card.dragover, .upload-drop-card:focus-within {
   border-color: var(--primary);
   background: rgba(59, 130, 246, 0.06);
   transform: translateY(-2px);
+}
+.upload-drop-card:focus-within {
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  outline: none;
 }
 
 .upload-drop-card input[type="file"] {
