@@ -128,6 +128,14 @@ function setupDragAndDrop() {
       });
     });
 
+    input.addEventListener('focus', () => {
+      card.classList.add('dragover');
+    });
+
+    input.addEventListener('blur', () => {
+      card.classList.remove('dragover');
+    });
+
     card.addEventListener('drop', (e) => {
       if (e.dataTransfer.files.length > 0) {
         input.files = e.dataTransfer.files;
@@ -380,12 +388,18 @@ function _resetBtn(btn) {
 
 function switchMode(mode) {
   currentMode = mode;
-  document.querySelectorAll('.mode-pill').forEach(pill => pill.classList.remove('active'));
+  document.querySelectorAll('.mode-pill').forEach(pill => {
+    pill.classList.remove('active');
+    pill.setAttribute('aria-pressed', 'false');
+  });
 
   const pills = document.querySelectorAll('.mode-pill');
   const modes = ['nomenklaturno', 'ikpu', 'artikul', 'kod'];
   const idx = modes.indexOf(mode);
-  if (idx >= 0 && pills[idx]) pills[idx].classList.add('active');
+  if (idx >= 0 && pills[idx]) {
+    pills[idx].classList.add('active');
+    pills[idx].setAttribute('aria-pressed', 'true');
+  }
 
   renderSettingsGuide(mode);
   updateDownloadLinks(mode);

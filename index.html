@@ -110,7 +110,7 @@
           </div>
           <h3>Sotuv Cheklari</h3>
           <p>Soliq.uz «Сотув» fayli (.xlsx)</p>
-          <input type="file" id="file-sotuv" accept=".xlsx,.xls">
+          <input type="file" id="file-sotuv" accept=".xlsx,.xls" aria-label="Sotuv cheki faylini tanlang">
           <div class="file-chip" id="info-sotuv">Faylni tanlang</div>
         </div>
 
@@ -122,7 +122,7 @@
           </div>
           <h3>Qaytarish Cheklari</h3>
           <p>Soliq.uz «Кайтариш» fayli (.xlsx)</p>
-          <input type="file" id="file-qayt" accept=".xlsx,.xls">
+          <input type="file" id="file-qayt" accept=".xlsx,.xls" aria-label="Qaytarish cheki faylini tanlang">
           <div class="file-chip" id="info-qayt">Faylni tanlang</div>
         </div>
 
@@ -134,7 +134,7 @@
           </div>
           <h3>1C Nomenklatura Kodlari</h3>
           <p>Papkadagi barcha nom fayllar avtomatik topiladi</p>
-          <input type="file" id="file-nom" accept=".xlsx,.xls">
+          <input type="file" id="file-nom" accept=".xlsx,.xls" aria-label="Nomenklatura faylini tanlang">
           <div class="file-chip" id="info-nom">Avtomatik topiladi</div>
         </div>
       </div>
@@ -188,21 +188,21 @@
           <span class="mode-label">1C DA QIDIRUV VA MOSLASH USULI:</span>
         </div>
         <div class="mode-pill-group">
-          <button class="mode-pill active" onclick="switchMode('nomenklaturno')">
-            <span class="pill-icon">📋</span>
+          <button class="mode-pill active" aria-pressed="true" onclick="switchMode('nomenklaturno')">
+            <span class="pill-icon" aria-hidden="true">📋</span>
             <span>Пономенклатурно</span>
             <span class="pill-tag">Nomi</span>
           </button>
-          <button class="mode-pill" onclick="switchMode('ikpu')">
-            <span class="pill-icon">🏷️</span>
+          <button class="mode-pill" aria-pressed="false" onclick="switchMode('ikpu')">
+            <span class="pill-icon" aria-hidden="true">🏷️</span>
             <span>По ИКПУ (МХИК)</span>
           </button>
-          <button class="mode-pill" onclick="switchMode('artikul')">
-            <span class="pill-icon">📦</span>
+          <button class="mode-pill" aria-pressed="false" onclick="switchMode('artikul')">
+            <span class="pill-icon" aria-hidden="true">📦</span>
             <span>По Артикулу</span>
           </button>
-          <button class="mode-pill" onclick="switchMode('kod')">
-            <span class="pill-icon">🔢</span>
+          <button class="mode-pill" aria-pressed="false" onclick="switchMode('kod')">
+            <span class="pill-icon" aria-hidden="true">🔢</span>
             <span>По Коду номенклатуры</span>
           </button>
         </div>
@@ -432,7 +432,7 @@
             <!-- Search Input -->
             <div class="search-input-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="table-search" placeholder="Tovar nomi, shtrixkod, IKPU..." oninput="handleSearch()">
+              <input type="text" id="table-search" aria-label="Jadvaldan izlash" placeholder="Tovar nomi, shtrixkod, IKPU..." oninput="handleSearch()">
             </div>
 
             <!-- Segment filter -->
