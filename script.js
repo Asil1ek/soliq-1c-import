@@ -137,6 +137,16 @@ function setupDragAndDrop() {
       }
     });
   });
+
+  // A11y: Add visual focus states for keyboard users to file inputs
+  ['sotuv', 'qayt', 'nom'].forEach(type => {
+    const input = document.getElementById(`file-${type}`);
+    const card = document.getElementById(`drop-${type}`);
+    if (input && card) {
+      input.addEventListener('focus', () => card.classList.add('dragover'));
+      input.addEventListener('blur', () => card.classList.remove('dragover'));
+    }
+  });
 }
 
 function processExistingFiles() {
