@@ -287,7 +287,7 @@ async function sendTo1C() {
   }
 
   btn.disabled = true;
-  btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Yuborilmoqda...';
+  btn.innerHTML = '<span class="spinner" style="margin-right: 8px;"></span> Yuborilmoqda...';
   _setStatus(statusDiv, 'info', '&#x23F3; 1C ga ulanmoqda...');
 
   try {
