@@ -1,0 +1,3 @@
+## 2026-10-10 - Visually Hidden File Inputs and Screen Readers
+**Learning:** File input elements (`<input type="file">`) that are visually hidden using `opacity: 0` for custom styling purposes (like dropzones) still receive keyboard focus and are navigable by screen readers. If they lack `aria-label`s, screen reader users will focus on an interactive element without any context about what file they are supposed to upload.
+**Action:** Always ensure that visually hidden inputs have descriptive `aria-label` attributes to maintain accessibility when using custom dropzone/upload components.
