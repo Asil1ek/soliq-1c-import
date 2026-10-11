@@ -1243,3 +1243,14 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Accessibility Focus Visible */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.upload-drop-card:focus-within {
+  border-color: var(--primary);
+  background: rgba(59, 130, 246, 0.06);
+}
