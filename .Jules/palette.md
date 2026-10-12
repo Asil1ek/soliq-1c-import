@@ -1,0 +1,3 @@
+## 2024-05-18 - Visually hidden file inputs lose focus indicators
+**Learning:** File inputs visually hidden (`opacity: 0`, covering a drop zone) inside custom file upload cards lose native browser focus indicators. Keyboard users navigating via Tab do not receive any visual feedback that the file input has received focus.
+**Action:** When using existing CSS (like a `.dragover` class or similar hover states on the parent card container), explicitly attach `focus` and `blur` event listeners to the `<input type="file">` to dynamically toggle these classes to restore focus visibility.
