@@ -114,6 +114,14 @@ function setupDragAndDrop() {
       }
     });
 
+    // Keyboard accessibility for visually hidden file input
+    input.addEventListener('focus', () => {
+      card.classList.add('dragover');
+    });
+    input.addEventListener('blur', () => {
+      card.classList.remove('dragover');
+    });
+
     ['dragenter', 'dragover'].forEach(evt => {
       card.addEventListener(evt, (e) => {
         e.preventDefault();
