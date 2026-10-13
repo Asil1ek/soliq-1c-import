@@ -136,6 +136,10 @@ function setupDragAndDrop() {
         showToast(`${input.files[0].name} yuklandi`, 'info');
       }
     });
+
+    // Handle keyboard focus to show active state on the card
+    input.addEventListener('focus', () => card.classList.add('dragover'));
+    input.addEventListener('blur', () => card.classList.remove('dragover'));
   });
 }
 
