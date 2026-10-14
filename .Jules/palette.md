@@ -1,0 +1,3 @@
+## 2024-05-24 - Preserving visual focus on invisible inputs inside clickable cards
+**Learning:** When `<input type="file">` elements are made visually invisible (e.g., `opacity: 0; position: absolute; width: 100%; height: 100%`) over a custom dropzone UI, keyboard users cannot see when the input receives focus. Using `:focus-visible` directly on the invisible input doesn't help because the outline is invisible or disjointed.
+**Action:** Apply `:focus-within` to the parent `.upload-drop-card` to simulate a focus ring on the entire card when the child input is focused, and suppress the inner input's focus outline (`outline: none;`). Combine this with global `:focus-visible` styles for other standard interactive elements.
