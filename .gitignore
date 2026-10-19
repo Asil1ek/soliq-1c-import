@@ -1,0 +1,3 @@
+app_output.log
+__pycache__/
+*.pyc
