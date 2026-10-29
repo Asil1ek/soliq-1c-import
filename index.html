@@ -110,7 +110,7 @@
           </div>
           <h3>Sotuv Cheklari</h3>
           <p>Soliq.uz «Сотув» fayli (.xlsx)</p>
-          <input type="file" id="file-sotuv" accept=".xlsx,.xls">
+          <input type="file" id="file-sotuv" accept=".xlsx,.xls" aria-label="Sotuv faylini yuklash" onfocus="document.getElementById('drop-sotuv').classList.add('dragover')" onblur="document.getElementById('drop-sotuv').classList.remove('dragover')">
           <div class="file-chip" id="info-sotuv">Faylni tanlang</div>
         </div>
 
@@ -122,7 +122,7 @@
           </div>
           <h3>Qaytarish Cheklari</h3>
           <p>Soliq.uz «Кайтариш» fayli (.xlsx)</p>
-          <input type="file" id="file-qayt" accept=".xlsx,.xls">
+          <input type="file" id="file-qayt" accept=".xlsx,.xls" aria-label="Qaytarish faylini yuklash" onfocus="document.getElementById('drop-qayt').classList.add('dragover')" onblur="document.getElementById('drop-qayt').classList.remove('dragover')">
           <div class="file-chip" id="info-qayt">Faylni tanlang</div>
         </div>
 
@@ -134,7 +134,7 @@
           </div>
           <h3>1C Nomenklatura Kodlari</h3>
           <p>Papkadagi barcha nom fayllar avtomatik topiladi</p>
-          <input type="file" id="file-nom" accept=".xlsx,.xls">
+          <input type="file" id="file-nom" accept=".xlsx,.xls" aria-label="Nomenklatura faylini yuklash" onfocus="document.getElementById('drop-nom').classList.add('dragover')" onblur="document.getElementById('drop-nom').classList.remove('dragover')">
           <div class="file-chip" id="info-nom">Avtomatik topiladi</div>
         </div>
       </div>
