@@ -1,0 +1,3 @@
+## 2026-10-31 - Visible Focus for Hidden Inputs
+**Learning:** Visually hidden file inputs (using opacity: 0 over a styled area) lose visible focus rings, making keyboard navigation difficult for users as they don't know when the input is focused.
+**Action:** Applied inline `onfocus` and `onblur` events to toggle existing hover/drag CSS classes (like `.dragover`) on the parent container, providing a visible focus state without adding custom CSS, and added `aria-label` attributes to ensure screen reader accessibility.
