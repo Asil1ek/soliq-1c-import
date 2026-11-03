@@ -1,0 +1,3 @@
+## 2024-11-03 - Keyboard accessibility for hidden inputs
+**Learning:** Visually hidden file inputs (e.g. `opacity: 0`) within upload cards receive keyboard focus but provide no visual indicator, breaking accessibility.
+**Action:** Added inline `onfocus` and `onblur` event handlers to the input elements to toggle the existing `.dragover` CSS class on their parent container, providing a visible focus state without adding custom CSS.
