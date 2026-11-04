@@ -1,0 +1,3 @@
+## 2026-11-04 - Maintaining Focus Visibility for Visually Hidden Inputs
+**Learning:** For file inputs hidden using `opacity: 0` (like the ones overlapping `.upload-drop-card`), native keyboard focus states are invisible. Screen reader users can interact with them, but keyboard-only sighted users lose visual context of where their focus is.
+**Action:** Always map `onfocus` and `onblur` events on hidden inputs to toggle a visible hover/focus class (e.g., `.dragover`) on the parent container to restore clear visual focus states for keyboard accessibility without custom CSS.
