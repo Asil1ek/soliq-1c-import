@@ -1,0 +1,3 @@
+## 2026-11-06 - Keyboard Focus for Visually Hidden Inputs
+**Learning:** Using `opacity: 0` for custom file input styling removes native keyboard focus visibility, which is a major accessibility issue. Adding standard `:focus` styles to a 0-opacity element doesn't work. However, we can reuse existing drag-and-drop state classes (like `.dragover`) on parent containers by adding inline `onfocus` and `onblur` handlers to the hidden input, providing clear visual feedback without writing new CSS.
+**Action:** Always check if zero-opacity inputs have a visible focus indicator. If the component already has a 'dragover' or 'active' state class, use inline `onfocus`/`onblur` to toggle that class to restore keyboard accessibility efficiently.
