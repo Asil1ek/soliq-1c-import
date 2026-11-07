@@ -1,0 +1,3 @@
+## 2024-05-24 - File Input Keyboard Accessibility with Opacity 0
+**Learning:** File inputs that are hidden using `opacity: 0` to cover custom styled drop zones lose their native browser focus rings. However, by adding inline `onfocus` and `onblur` events that toggle an existing CSS class on the parent element (like `.dragover` which is often used for drag-and-drop hover states), we can easily restore visible keyboard focus without adding any new custom CSS classes.
+**Action:** Always check file input drop zones that hide the native input element to ensure they provide a visible state change when focused via keyboard navigation. Use the existing hover/active classes to style this focus state.
